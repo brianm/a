@@ -1,8 +1,11 @@
+# set this to match the base package
 PACKAGE=github.com/brianm/goskel
 
+# where dependencies, etc, should check out to
 WORKSPACE=$(PWD)/build
 
 build: env
+	GOPATH=$(WORKSPACE) go get $(PACKAGE)
 	GOPATH=$(WORKSPACE) go install $(PACKAGE)/goskel
 
 env:
