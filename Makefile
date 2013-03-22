@@ -14,4 +14,4 @@ env:
 	ln -s $(PWD) $(WORKSPACE)/src/$(PACKAGE)
 
 clean:
-	rm -rf build
+	rm -rf $(WORKSPACE)
