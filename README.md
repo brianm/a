@@ -63,9 +63,10 @@ name currently being worked on (useful for inclusion in PS1).
 Additionally, if there is a <code>.bash\_local</code> file in the
 project directory, it will source that after everything else is set
 up. Personally, my <code>.bash\_local</code> prepends $WORKING_ON to
-my PS1, a la
+my PS1, and cd's into the project within the GOPATH:
 
     export PS1="[$WORKING_ON] $PS1"
+    cd $project
     
 So that I know what workspace I am in.
 
