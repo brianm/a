@@ -1,7 +1,11 @@
 # Go Skeleton Project
 
 This is a skeleton of a [Go](http://golang.org/) project which sets up
-a Go workspace and places the project into that workspace.
+a Go workspace and places the project into that workspace. It comes
+with a Makefile to make life easier for you, but it sets up a "go
+remote" compatible environment. The Makefile exists to set up a Go
+workspace and to make life easier for common cases of using that
+workspace (such as building the project in the workspace).
 
 The idea behind this skeleton is to NOT require anything aside from Go
 to be set up, and that the skeleton will make a "Go Workspace" for
