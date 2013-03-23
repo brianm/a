@@ -30,10 +30,9 @@ If you just want to build this project, not develop it, just run make:
 
     $ make
     
-Enabling this is about half the point of the project. Okay, now for
-developers hacking on a project using this go skeleton...
+Enabling this is about half the point of the project.
 
-## Useful Targets
+## Some Useful Targets
 
 * <code>make</code> The default target is "build", which will build
   your project.
