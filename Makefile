@@ -1,5 +1,6 @@
 # set this to match the base package
-PACKAGE=github.com/brianm/goskel
+PACKAGE=`git remote -v | grep push | grep origin | awk '{print $2}' | cut -d '@' -f 2 | tr ':' '/' | cut -f 1,2 -d '.'`
+# or just set it manually a la PACKAGE=github.com/brianm/goskel
 
 # where dependencies, etc, should check out to
 WORKSPACE=$(PWD)/build
