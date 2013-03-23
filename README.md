@@ -78,6 +78,7 @@ on. If it guesses incorrectly for you, just set the PACKAGE variable
 to the right thing.
 
 ## The build Makefile Target
+
 Running
 
     $ make
