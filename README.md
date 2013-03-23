@@ -36,7 +36,7 @@ Output will be in the <code>WORKSPACE/bin</code> directory.
 
 ## I *am* a Go programmer, Makefiles are the devil!
 
-It's okat, the Makefile just automates workspace setup, and common
+It's okay, the Makefile just automates workspace setup, and common
 tasks (like building the primary output of the project). You don't
 need to use it.
 
