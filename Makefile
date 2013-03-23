@@ -11,16 +11,17 @@ WORKSPACE=${PWD}/WORKSPACE
 build: deps
 	GOPATH=${WORKSPACE} go install $(PACKAGE)/hello
 
-deps: env
+deps: workspace
 	GOPATH=$(WORKSPACE) go get $(PACKAGE)
 
-env:
+workspace:
 	mkdir -p $(WORKSPACE)/src/$(PACKAGE)
 	rm -r $(WORKSPACE)/src/$(PACKAGE) # remove last dir for symlink
 	ln -s $(PWD) $(WORKSPACE)/src/$(PACKAGE)
 
 clean:
 	rm -rf ${WORKSPACE}/pkg/*
+	rm -rf ${WORKSPACE}/bin/*
 
 clean-workspace: clean
 	rm -rf $(WORKSPACE)

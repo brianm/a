@@ -13,11 +13,35 @@ get</code>).
 The workspace will be in the <code>WORKSPACE</code> directory of the
 checkout. This is probably controversial within the Go community, but
 it makes life much easier in my opinion. It is set up this way so that
-projects using this skeleton remain compatible with <code>go
+projects using thisg skeleton remain compatible with <code>go
 remote</code> expectations, but not require setting up any global
 GOPATH or workspace, or having to deal with checking things out to the
 right place in your workspace. Automation, such as make, is supposed
 to solve this for us, so let us let it do that.
+
+## Useful Targets
+
+* <code>make</code> The default target is "build", which will build
+  your project.
+* <code>make clean</code> Will remove all compiled stuff from the
+  workspace, specifically WORKSPACE/pkg and WORKSPACE/bin
+* <code>make clean-workspace</code> Will complrtely wipe out the
+  WORKSPACE.
+
+There are also <code>workspace</code> and <code>deps</code> targets,
+which set up the basic workspace, and run <code>go get</code>
+respectively.
+
+## "Normal" Go Development
+
+The canonical way of working with your project would be to export your
+GOPATH and then cd down to the code you are working on, and work on it
+there. This works fine. If you want to avoid using make for typical
+build and test, this is a good thing. If you don't want to cd down and
+muck about, you can just work in the project checkout *outside* the
+GOPATH. Folks in #go-nuts will think you are weird, but it's okay.
+You'll want to make sure to use <code>make</code> to build things
+though, so it can keep the GOPATH sane for you.
 
 # Customizing the Skeleton
 
