@@ -20,4 +20,8 @@ env:
 	ln -s $(PWD) $(WORKSPACE)/src/$(PACKAGE)
 
 clean:
+	rm -rf $(WORKSPACE)/pkg/*
+
+clean-workspace:
 	rm -rf $(WORKSPACE)
+
