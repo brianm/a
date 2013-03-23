@@ -3,7 +3,7 @@
 PACKAGE=`git remote -v | grep push | grep origin | awk '{print $2}' | cut -d '@' -f 2 | tr ':' '/' | cut -f 1,2 -d '.'`
 
 # where dependencies, etc, should check out to
-WORKSPACE=$(PWD)/build
+WORKSPACE=$(PWD)/WORKSPACE
 
 # change this to build your thing appropriately
 # in this case it is building the "hello" binary
