@@ -1,14 +1,3 @@
-A skeleton [Go](http://golang.org/) project designed to make both
-development and building by newbies easy.
-
-# I just want to build this project!
-
-If you just want to build this project, not develop it, run make:
-
-    $ make
-    
-Enabling this is about half the point of the project.
-
 # Go Skeleton Project
 
 This is a skeleton of a [Go](http://golang.org/) project which sets up
@@ -34,6 +23,22 @@ remote</code> expectations, but not require setting up any global
 GOPATH or workspace, or having to deal with checking things out to the
 right place in your workspace. Automation, such as make, is supposed
 to solve this for us, so let us let it do that.
+
+# Don't Panic
+
+## I don't know Go, I just want to build this project!
+
+If you just want to build this project, not develop it, run make:
+
+    $ make
+    
+Output will be in the <code>WORKSPACE/bin</code> directory.
+
+## I *am* a Go programmer, Makefiles are the devil!
+
+It's okat, the Makefile just automates workspace setup, and common
+tasks (like building the primary output of the project). You don't
+need to use it.
 
 ## Some Useful Targets
 
