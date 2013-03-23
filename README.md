@@ -44,12 +44,25 @@ You'll want to make sure to use <code>make</code> to build things
 though, so it can keep the GOPATH sane for you.
 
 If you run the <code>activate.sh</code> bash script, it will start a
-child bash process with a correct GOPATH, and a PATH which starts with
-WORKSPACE/bin.
+child bash process designed to work in your WORKSPACE:
 
     $ ./activate.sh
     
-This will export the GOPATH you need.
+This will export the correct GOPATH, will prefix PATH with
+WORKSPACE/bin, will export a <code>$project</code> environment
+variable which is the path to the current project in the GOPATH, a
+<code>$root</code> environment variable pointing at the checkout root,
+and a <code>WORKING_ON</code> environment variable with the package
+name currently being worked on (useful for inclusion in PS1).
+
+Additionally, if there is a <code>.bash\_local</code> file in the
+project directory, it will source that after everything else is set
+up. Personally, my <code>.bash\_local</code> prepeds $WORKING_ON to my
+PS1, a la
+
+    export PS1="[$WORKING_ON] $PS1"
+    
+So that I know what workspace I am in.
 
 # Customizing the Skeleton
 

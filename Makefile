@@ -29,5 +29,6 @@ clean-workspace: clean
 env: workspace
 	@echo "export GOPATH=$(WORKSPACE)"
 	@echo "export PATH=$(WORKSPACE)/bin:$(PATH)"
-	@echo "export PACKAGE=$(PACKAGE)"
-
+	@echo "export WORKING_ON=$(PACKAGE)"
+	@echo "export project=$(WORKSPACE)/src/$(PACKAGE)"
+	@echo "export root=$(PWD)"
