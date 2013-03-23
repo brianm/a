@@ -60,9 +60,9 @@ GOPATH and then cd down to the code you are working on, and work on it
 there. This works fine. If you want to avoid using make for typical
 build and test, this is a good thing. If you don't want to cd down and
 muck about, you can just work in the project checkout *outside* the
-GOPATH. Folks in #go-nuts will think you are weird, but it's okay.
-You'll want to make sure to use <code>make</code> to build things
-though, so it can keep the GOPATH sane for you.
+GOPATH. Folks in #go-nuts will think you are weird, but it's okay. In
+this case, do use make to build things for you, as it will do stuff
+within the workspace on your behalf.
 
 If you run the <code>activate.sh</code> bash script, it will start a
 child bash process designed to work in your WORKSPACE:
