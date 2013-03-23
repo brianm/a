@@ -24,6 +24,15 @@ GOPATH or workspace, or having to deal with checking things out to the
 right place in your workspace. Automation, such as make, is supposed
 to solve this for us, so let us let it do that.
 
+# I just want to build this project!
+
+If you just want to build this project, not develop it, just run make:
+
+    $ make
+    
+Enabling this is about half the point of the project. Okay, now for
+developers hacking on a project using this go skeleton...
+
 ## Useful Targets
 
 * <code>make</code> The default target is "build", which will build
