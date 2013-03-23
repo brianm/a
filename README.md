@@ -43,6 +43,15 @@ GOPATH. Folks in #go-nuts will think you are weird, but it's okay.
 You'll want to make sure to use <code>make</code> to build things
 though, so it can keep the GOPATH sane for you.
 
+If you source the <code>activate.sh</code> it will set up the GOPATH
+for "normal" Go development. The checkout dir will be symlinked into
+the workspace at the right place, so you can go down and work on it
+normally. By sourcing, I mean, in bash:
+
+    $ . activate.sh
+    
+This will export the GOPATH you need.
+
 # Customizing the Skeleton
 
 Folks using this skeleton will almost certainlyneed to customize it.

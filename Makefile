@@ -15,9 +15,9 @@ deps: workspace
 	GOPATH=$(WORKSPACE) go get $(PACKAGE)
 
 workspace:
-	mkdir -p $(WORKSPACE)/src/$(PACKAGE)
-	rm -r $(WORKSPACE)/src/$(PACKAGE) # remove last dir for symlink
-	ln -s $(PWD) $(WORKSPACE)/src/$(PACKAGE)
+	@mkdir -p $(WORKSPACE)/src/$(PACKAGE)
+	@rm -r $(WORKSPACE)/src/$(PACKAGE) # remove last dir for symlink
+	@ln -s $(PWD) $(WORKSPACE)/src/$(PACKAGE)
 
 clean:
 	rm -rf ${WORKSPACE}/pkg/*
@@ -26,3 +26,5 @@ clean:
 clean-workspace: clean
 	rm -rf $(WORKSPACE)
 
+env: workspace
+	@echo "export GOPATH=$(WORKSPACE)"
