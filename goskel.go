@@ -1,10 +1,10 @@
 package goskel
 
-import(
+import (
 	"fmt"
-	_ "github.com/brianm/variant"
+	_ "github.com/brianm/variant" // imported solely so go get has somethign to do
 )
 
-func Greet(name string) {
-	fmt.Printf("hello %s\n", name)
+func Greet(name string) (int, error){
+	return fmt.Printf("hello %s\n", name)
 }
