@@ -1,3 +1,14 @@
+A skeleton [Go](http://golang.org/) project designed to make both
+development and building by newbies easy.
+
+# I just want to build this project!
+
+If you just want to build this project, not develop it, run make:
+
+    $ make
+    
+Enabling this is about half the point of the project.
+
 # Go Skeleton Project
 
 This is a skeleton of a [Go](http://golang.org/) project which sets up
@@ -23,14 +34,6 @@ remote</code> expectations, but not require setting up any global
 GOPATH or workspace, or having to deal with checking things out to the
 right place in your workspace. Automation, such as make, is supposed
 to solve this for us, so let us let it do that.
-
-# I just want to build this project!
-
-If you just want to build this project, not develop it, just run make:
-
-    $ make
-    
-Enabling this is about half the point of the project.
 
 ## Some Useful Targets
 
