@@ -32,3 +32,6 @@ env: workspace
 	@echo "export WORKING_ON=$(PACKAGE)"
 	@echo "export project=$(WORKSPACE)/src/$(PACKAGE)"
 	@echo "export root=$(PWD)"
+
+check-sanity:
+	@echo "PACKAGE=$(PACKAGE)"

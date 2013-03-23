@@ -100,6 +100,16 @@ and does some munging to guess. If it guesses correctly for you, rock
 on. If it guesses incorrectly for you, just set the PACKAGE variable
 to the right thing.
 
+You can find out what it is guessing via the <code>check-sanity<code>
+target:
+
+    $ make check-sanity
+    
+Which will output the various environment stuff being inferred. Check
+the <code>PACKAGE</code> one, it is the the one which is fragile. It
+should match the base package folks would import, ie
+"github.com/brianm/variant"
+
 ## The build Makefile Target
 
 Running
