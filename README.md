@@ -18,7 +18,7 @@ get</code>).
 The workspace will be in the <code>WORKSPACE</code> directory of the
 checkout. This is probably controversial within the Go community, but
 it makes life much easier in my opinion. It is set up this way so that
-projects using thisg skeleton remain compatible with <code>go
+projects using this skeleton remain compatible with <code>go
 remote</code> expectations, but not require setting up any global
 GOPATH or workspace, or having to deal with checking things out to the
 right place in your workspace. Automation, such as make, is supposed
