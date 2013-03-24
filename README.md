@@ -73,7 +73,7 @@ child bash process designed to work in your WORKSPACE:
     $ ./activate.sh
     
 This will export the correct <code>GOPATH</code>, will prefix
-<code>PATH</code> with <code>$GOPATH/bin</code>, will export a
+<code>PATH</code> with <code>WORKSPACE/bin</code>, will export a
 <code>project</code> environment variable which is the path to the
 current project in the <code>GOPATH</code>, a <code>root</code>
 environment variable pointing at the checkout root, and a
