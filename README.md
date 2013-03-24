@@ -47,8 +47,9 @@ need to use it.
 * <code>make test</code> Run tests.
 * <code>make clean</code> Will remove all compiled stuff from the
   workspace, specifically WORKSPACE/pkg and WORKSPACE/bin
-* <code>make clean-workspace</code> Will complrtely wipe out the
+* <code>make clean-workspace</code> Will completely wipe out the
   WORKSPACE.
+* <code>make docserver</code> run the godoc server on port 5050
 
 There are also <code>workspace</code> and <code>deps</code> targets,
 which set up the basic workspace, and run <code>go get</code>
