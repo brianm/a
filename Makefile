@@ -1,5 +1,5 @@
 # set this to match the base package, ie "github.com/brianm/goskel"
-# this autodetection might work for you, or might now
+# this autodetection might work for you, or might not
 PACKAGE := $(shell git remote -v | grep push | grep origin \
 			 | awk '{print $2}' | cut -d '@' -f 2 | tr ':' '/' \
 			 | cut -f 1,2 -d '.')
