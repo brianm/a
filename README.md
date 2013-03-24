@@ -92,7 +92,7 @@ So that I know what workspace I am in.
 
 # Customizing the Skeleton
 
-Folks using this skeleton will almost certainlyneed to customize it.
+Folks using this skeleton will almost certainly need to customize it.
 Beyond making it fancier, the two things to look out for:
 
 ## The PACKAGE Makefile Variable 
@@ -103,7 +103,7 @@ and does some munging to guess. If it guesses correctly for you, rock
 on. If it guesses incorrectly for you, just set the PACKAGE variable
 to the right thing.
 
-You can find out what it is guessing via the <code>check-sanity<code>
+You can find out what it is guessing via the <code>check-sanity</code>
 target:
 
     $ make check-sanity
@@ -111,7 +111,7 @@ target:
 Which will output the various environment stuff being inferred. Check
 the <code>PACKAGE</code> one, it is the the one which is fragile. It
 should match the base package folks would import, ie
-"github.com/brianm/variant".
+<code>github.com/brianm/variant</code>.
 
 ## The build Makefile Target
 
@@ -128,4 +128,6 @@ binary called <code>hello</code>. You'll never guess what it does!
 
 The <code>test</code> target tries to run tests in the project root,
 and all directories other then WORKSPACE and .git off of the root. You
-may need to customize this behavior for your needs.
+may need to customize this behavior for your needs. If you do need to
+customize this behavior, take a look at the <code>fmt</code> target as
+well, as it uses the same heuristic as <code>test</code>.
