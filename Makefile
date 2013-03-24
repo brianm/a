@@ -23,6 +23,13 @@ test: deps
 									 -not -name .git \
 		-exec go test $(PACKAGE)/{}  \;
 
+fmt: deps
+	@GOPATH=$(WORKSPACE) go fmt $(PACKAGE)
+	@GOPATH=$(WORKSPACE) find . -d 1 -type d \
+									 -not -name WORKSPACE \
+									 -not -name .git \
+		-exec go fmt $(PACKAGE)/{}  \;
+
 # Fetch dependencies
 deps: workspace
 	GOPATH=$(WORKSPACE) go get $(PACKAGE)
