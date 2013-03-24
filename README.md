@@ -44,6 +44,7 @@ need to use it.
 
 * <code>make</code> The default target is "build", which will build
   your project.
+* <code>make test</code> Run tests.
 * <code>make clean</code> Will remove all compiled stuff from the
   workspace, specifically WORKSPACE/pkg and WORKSPACE/bin
 * <code>make clean-workspace</code> Will complrtely wipe out the
@@ -108,7 +109,7 @@ target:
 Which will output the various environment stuff being inferred. Check
 the <code>PACKAGE</code> one, it is the the one which is fragile. It
 should match the base package folks would import, ie
-"github.com/brianm/variant"
+"github.com/brianm/variant".
 
 ## The build Makefile Target
 
@@ -120,3 +121,9 @@ by itself will run the <code>build</code> target. As exactly what you
 want to build will vary by project, you will probably need to
 customize this target to build the right thing. Right now it builds a
 binary called <code>hello</code>. You'll never guess what it does!
+
+## The test Makefile Target
+
+The <code>test</code> target tries to run tests in the project root,
+and all directories other then WORKSPACE and .git off of the root. You
+may need to customize this behavior for your needs.

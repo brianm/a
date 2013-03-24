@@ -8,8 +8,16 @@ WORKSPACE=$(PWD)/WORKSPACE
 # change this to build your thing appropriately
 # in this case it is building the "hello" binary
 # yours will probably be different
-build: deps
-	GOPATH=${WORKSPACE} go install $(PACKAGE)/hello
+build: test
+	GOPATH=$(WORKSPACE) go install $(PACKAGE)/hello
+	@echo "output: $(WORKSPACE)/bin/hello"	
+
+test: deps
+	@GOPATH=$(WORKSPACE) go test $(PACKAGE)
+	@GOPATH=$(WORKSPACE) find . -d 1 -type d \
+									 -not -name WORKSPACE \
+									 -not -name .git \
+		-exec go test $(PACKAGE)/{}  \;
 
 deps: workspace
 	GOPATH=$(WORKSPACE) go get $(PACKAGE)
@@ -33,6 +41,7 @@ env: workspace
 	@echo "export project=$(WORKSPACE)/src/$(PACKAGE)"
 	@echo "export root=$(PWD)"
 
+# this is gross, but it works
 docserver: deps
 	@echo "starting docserver on http://localhost:5050"; 
 	$(eval TMPD := $(shell mktemp -d /tmp/godoc.XXX))
