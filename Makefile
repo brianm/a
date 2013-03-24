@@ -23,6 +23,7 @@ test: deps
 									 -not -name .git \
 		-exec go test $(PACKAGE)/{}  \;
 
+# Run "go fmt" on likely packages
 fmt: deps
 	@GOPATH=$(WORKSPACE) go fmt $(PACKAGE)
 	@GOPATH=$(WORKSPACE) find . -d 1 -type d \

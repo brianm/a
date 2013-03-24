@@ -49,7 +49,8 @@ need to use it.
   workspace, specifically WORKSPACE/pkg and WORKSPACE/bin
 * <code>make clean-workspace</code> Will completely wipe out the
   WORKSPACE.
-* <code>make docserver</code> run the godoc server on port 5050
+* <code>make docserver</code> Run the godoc server on port 5050
+* <code>make fmt</code> Run <code>go fmt</code> on project sources. 
 
 There are also <code>workspace</code> and <code>deps</code> targets,
 which set up the basic workspace, and run <code>go get</code>
