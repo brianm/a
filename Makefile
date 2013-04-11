@@ -4,6 +4,8 @@ PACKAGE := $(shell git remote -v | grep push | grep origin \
 			 | awk '{print $2}' | cut -d '@' -f 2 | tr ':' '/' \
 			 | cut -f 1,2 -d '.')
 
+TMPDIR := $(shell mktemp -d /tmp/go_env.XXX)
+
 # The Go workspace directory
 WORKSPACE=$(PWD)/WORKSPACE
 
