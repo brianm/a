@@ -4,7 +4,7 @@ PACKAGE := $(shell git remote -v | grep push | grep origin \
 			 | awk '{print $2}' | cut -d '@' -f 2 | tr ':' '/' \
 			 | cut -f 1,2 -d '.')
 
-WORKSPACE=$(PWD)/WORKSPACE
+WORKSPACE=$(PWD)/.workspace
 
 # Change this to build your thing appropriately
 # in this case it is building the "hello" binary
@@ -29,7 +29,7 @@ fmt: workspace
 									 -not -name .git \
 		-exec go fmt $(PACKAGE)/{}  \;
 
-WORKSPACE:
+$(WORKSPACE):
 	$(eval WORK_BUILD := $(shell mktemp -d /tmp/goskel.XXX))
 	mkdir -p $(WORK_BUILD)/src/$(PACKAGE)
 	rm -r $(WORK_BUILD)/src/$(PACKAGE)
@@ -39,7 +39,7 @@ WORKSPACE:
 
 # Build the Go workspace and symlink this project into
 # it at the correct place.
-workspace: WORKSPACE
+workspace: $(WORKSPACE)
 
 # Wipes out build artifacts
 clean:

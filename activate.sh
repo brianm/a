@@ -2,14 +2,14 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 echo ". ~/.bashrc" > /tmp/go_env.$$
-make env >> /tmp/go_env.$$
+make env >> /tmp/go_activate.$$
 if [ -f .bash_local ]
 then
-    echo ". $DIR/.bash_local" >> /tmp/go_env.$$
+    echo ". $DIR/.bash_local" >> /tmp/go_activate.$$
 fi
 
-echo "Entering WORKSPACE, exit shell to escape"
-bash --init-file /tmp/go_env.$$ -i
+echo "Entering workspace, exit shell to escape"
+bash --init-file /tmp/go_activate.$$ -i
 
-echo "Exiting WORKSPACE"
-rm /tmp/go_env.$$
+echo "Exiting workspace"
+rm /tmp/go_activate.$$
