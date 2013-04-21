@@ -17,7 +17,7 @@ build: workspace
 test: build
 	@GOPATH=$(WORKSPACE) go test $(PACKAGE)
 	@GOPATH=$(WORKSPACE) find . -d 1 -type d \
-									 -not -name WORKSPACE \
+									 -not -name $(shell basename $(WORKSPACE)) \
 									 -not -name .git \
 		-exec go test $(PACKAGE)/{}  \;
 
@@ -25,7 +25,7 @@ test: build
 fmt: workspace
 	@GOPATH=$(WORKSPACE) go fmt $(PACKAGE)
 	@GOPATH=$(WORKSPACE) find . -d 1 -type d \
-									 -not -name WORKSPACE \
+									 -not -name $(shell basename $(WORKSPACE)) \
 									 -not -name .git \
 		-exec go fmt $(PACKAGE)/{}  \;
 
