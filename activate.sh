@@ -1,7 +1,7 @@
 #!/bin/bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-echo ". ~/.bashrc" > /tmp/go_env.$$
+echo ". ~/.bashrc" > /tmp/go_activate.$$
 make env >> /tmp/go_activate.$$
 if [ -f .bash_local ]
 then
