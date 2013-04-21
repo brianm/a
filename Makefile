@@ -88,6 +88,6 @@ check-sanity:
 	@echo "PACKAGE=$(PACKAGE)"
 
 newspace:
-	find . -type d ! -path ./WORKSPACE\* -a ! -path ./.git\* -exec mkdir -p "./WORKSPACE/src/$(PACKAGE)/{}" \;
-	find . -type f ! -path ./WORKSPACE\* -a ! -path ./.git/\* -exec ln {} "./WORKSPACE/src/$(PACKAGE)/{}" \;
-	ln -s $(PWD)/.git ./WORKSPACE/src/$(PACKAGE)/.git
+	find . -type d ! -path ./$(shell basename $(WORKSPACE))\* -a ! -path ./.git\* -exec mkdir -p "$(WORKSPACE)/src/$(PACKAGE)/{}" \;
+	find . -type f ! -path ./$(shell basename $(WORKSPACE))\* -a ! -path ./.git/\* -exec ln {} "$(WORKSPACE)/src/$(PACKAGE)/{}" \;
+	ln -s $(PWD)/.git $(WORKSPACE)/src/$(PACKAGE)/.git
