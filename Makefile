@@ -4,21 +4,19 @@ PACKAGE := $(shell git remote -v | grep push | grep origin \
 			 | awk '{print $2}' | cut -d '@' -f 2 | tr ':' '/' \
 			 | cut -f 1,2 -d '.')
 
-TMPDIR := $(shell mktemp -d /tmp/go_env.XXX)
+WORK_BUILD := $(shell mktemp -d /tmp/go_env.XXX)
 
-# The Go workspace directory
 WORKSPACE=$(PWD)/WORKSPACE
 
 # Change this to build your thing appropriately
 # in this case it is building the "hello" binary
 # yours will probably be different
-build: test
-	GOPATH=$(WORKSPACE) go install $(PACKAGE)/hello
-	@echo "output: $(WORKSPACE)/bin/hello"	
+build: workspace
+	GOPATH=$(WORKSPACE) go get $(PACKAGE)/hello
 
 # Run tests in root, and non {WORKSPACE .git} subdirs
 # of the root
-test: deps
+test: build
 	@GOPATH=$(WORKSPACE) go test $(PACKAGE)
 	@GOPATH=$(WORKSPACE) find . -d 1 -type d \
 									 -not -name WORKSPACE \
@@ -26,21 +24,22 @@ test: deps
 		-exec go test $(PACKAGE)/{}  \;
 
 # Run "go fmt" on likely packages
-fmt: deps
+fmt: workspace
 	@GOPATH=$(WORKSPACE) go fmt $(PACKAGE)
 	@GOPATH=$(WORKSPACE) find . -d 1 -type d \
 									 -not -name WORKSPACE \
 									 -not -name .git \
 		-exec go fmt $(PACKAGE)/{}  \;
 
-# Fetch dependencies
-deps: workspace
-	GOPATH=$(WORKSPACE) go get $(PACKAGE)
-
 WORKSPACE:
-	find . -type d ! -path ./$(shell basename $(WORKSPACE))\* -a ! -path ./.git\* -exec mkdir -p "$(WORKSPACE)/src/$(PACKAGE)/{}" \;
-	find . -type f ! -path ./$(shell basename $(WORKSPACE))\* -a ! -path ./.git/\* -exec ln {} "$(WORKSPACE)/src/$(PACKAGE)/{}" \;
-	ln -s $(PWD)/.git $(WORKSPACE)/src/$(PACKAGE)/.git
+	mkdir -p $(WORK_BUILD)/src/$(PACKAGE)
+	@echo "copying!"
+	rm -r $(WORK_BUILD)/src/$(PACKAGE)
+	cp -pr . $(WORK_BUILD)/src/$(PACKAGE)
+	@echo "moving!"
+	mv $(WORK_BUILD) $(WORKSPACE)
+	@echo "getting"
+	GOPATH=$(WORKSPACE) go get $(PACKAGE)
 
 # Build the Go workspace and symlink this project into
 # it at the correct place.
@@ -64,27 +63,8 @@ env: workspace
 	@echo "export project=$(WORKSPACE)/src/$(PACKAGE)"
 	@echo "export root=$(PWD)"
 
-# This is, sadly, utterly gross. Godoc will not follow
-# symlinks, and we use a symlink for the project in the
-# workspace. In order to work around this, we set up a
-# copy of the workspace in a temp dir, and run godoc 
-# against that workspace.
-docserver: deps
-	@echo "starting docserver on http://localhost:5050"; 
-	$(eval TMPD := $(shell mktemp -d /tmp/godoc.XXX))
-	$(eval DST="$(TMPD)/src/$(PACKAGE)")
-	@mkdir -p $(DST)
-	@rm -r $(DST) # remove final dir
-	@cp -RH $(WORKSPACE)/src/* $(TMPD)/src/ #don't follow symlinks
-	@rm $(DST) # remove the symlink
-	@mkdir $(DST) # make dir to hold our stuff
-	@cp -r *.go $(DST)
-	@find . -d 1 -type d -not -name WORKSPACE -not -name .git \
-		-exec cp -r {} $(DST) \;
-	@echo "#!/bin/bash" > $(TMPD)/run
-	@echo "trap 'rm -rf $(TMPD); exit' SIGHUP SIGINT SIGTERM" >> $(TMPD)/run
-	@echo "GOPATH=$(TMPD) godoc -http=:5050" >> $(TMPD)/run
-	@bash $(TMPD)/run
+docserver: workspace
+	GOPATH=$(WORKSPACE) godoc -http=:5050
 
 # Convenience to make sure PACKAGE is being picked up correctly
 check-sanity:
