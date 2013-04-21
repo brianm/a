@@ -37,12 +37,14 @@ fmt: deps
 deps: workspace
 	GOPATH=$(WORKSPACE) go get $(PACKAGE)
 
+WORKSPACE:
+	find . -type d ! -path ./$(shell basename $(WORKSPACE))\* -a ! -path ./.git\* -exec mkdir -p "$(WORKSPACE)/src/$(PACKAGE)/{}" \;
+	find . -type f ! -path ./$(shell basename $(WORKSPACE))\* -a ! -path ./.git/\* -exec ln {} "$(WORKSPACE)/src/$(PACKAGE)/{}" \;
+	ln -s $(PWD)/.git $(WORKSPACE)/src/$(PACKAGE)/.git
+
 # Build the Go workspace and symlink this project into
 # it at the correct place.
-workspace:
-	@mkdir -p $(WORKSPACE)/src/$(PACKAGE)
-	@rm -r $(WORKSPACE)/src/$(PACKAGE) # remove last dir for symlink
-	@ln -s $(PWD) $(WORKSPACE)/src/$(PACKAGE)
+workspace: WORKSPACE
 
 # Wipes out build artifacts
 clean:
@@ -51,6 +53,7 @@ clean:
 # Wipes out the workspace
 clean-workspace: clean
 	rm -rf $(WORKSPACE)
+
 
 # Display useful env vars which can be set to enter
 # the workspace
@@ -86,8 +89,3 @@ docserver: deps
 # Convenience to make sure PACKAGE is being picked up correctly
 check-sanity:
 	@echo "PACKAGE=$(PACKAGE)"
-
-newspace:
-	find . -type d ! -path ./$(shell basename $(WORKSPACE))\* -a ! -path ./.git\* -exec mkdir -p "$(WORKSPACE)/src/$(PACKAGE)/{}" \;
-	find . -type f ! -path ./$(shell basename $(WORKSPACE))\* -a ! -path ./.git/\* -exec ln {} "$(WORKSPACE)/src/$(PACKAGE)/{}" \;
-	ln -s $(PWD)/.git $(WORKSPACE)/src/$(PACKAGE)/.git
