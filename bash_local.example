@@ -1,0 +1,21 @@
+# rename to .bash_local to use
+
+function bash_prompt() {
+# set a fancy prompt (non-color, unless we know we "want" color)
+
+    export GIT_PS1_SHOWDIRTYSTATE=1
+    #export GIT_PS1_SHOWSTASHSTATE=1
+    export GIT_PS1_SHOWUNTRACKEDFILES=1
+    #export GIT_PS1_SHOWUPSTREAM="auto"
+
+    local purple="\[\033[38;5;54m\]"
+    local lgreen="\[\033[38;5;156m\]"  
+    local lblue="\[\033[38;5;153m\]"  
+    local reset="\[\033[00m\]"
+    local git_stuff='$(__git_ps1 "\[\033[31m\]<\[\033[01m\]%s\[\033[22m\]>\[\033[00m\]")'
+
+    PS1="[${purple}$WORKING_ON${reset}]:${lblue}\w${git_stuff}${reset}$ "
+}
+bash_prompt
+export PROMPT_DIRTRIM=2
+cd $project
