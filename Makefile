@@ -4,8 +4,6 @@ PACKAGE := $(shell git remote -v | grep push | grep origin \
 			 | awk '{print $2}' | cut -d '@' -f 2 | tr ':' '/' \
 			 | cut -f 1,2 -d '.')
 
-WORK_BUILD := $(shell mktemp -d /tmp/go_env.XXX)
-
 WORKSPACE=$(PWD)/WORKSPACE
 
 # Change this to build your thing appropriately
@@ -32,13 +30,11 @@ fmt: workspace
 		-exec go fmt $(PACKAGE)/{}  \;
 
 WORKSPACE:
+	$(eval WORK_BUILD := $(shell mktemp -d /tmp/goskel.XXX))
 	mkdir -p $(WORK_BUILD)/src/$(PACKAGE)
-	@echo "copying!"
 	rm -r $(WORK_BUILD)/src/$(PACKAGE)
 	cp -pr . $(WORK_BUILD)/src/$(PACKAGE)
-	@echo "moving!"
 	mv $(WORK_BUILD) $(WORKSPACE)
-	@echo "getting"
 	GOPATH=$(WORKSPACE) go get $(PACKAGE)
 
 # Build the Go workspace and symlink this project into
