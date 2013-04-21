@@ -46,8 +46,7 @@ workspace:
 
 # Wipes out build artifacts
 clean:
-	rm -rf $(WORKSPACE)/pkg/*
-	rm -rf $(WORKSPACE)/bin/*
+	rm -rf $(WORKSPACE)
 
 # Wipes out the workspace
 clean-workspace: clean
@@ -87,3 +86,8 @@ docserver: deps
 # Convenience to make sure PACKAGE is being picked up correctly
 check-sanity:
 	@echo "PACKAGE=$(PACKAGE)"
+
+newspace:
+	find . -type d ! -path ./WORKSPACE\* -a ! -path ./.git\* -exec mkdir -p "./WORKSPACE/src/$(PACKAGE)/{}" \;
+	find . -type f ! -path ./WORKSPACE\* -a ! -path ./.git/\* -exec ln {} "./WORKSPACE/src/$(PACKAGE)/{}" \;
+	ln -s $(PWD)/.git ./WORKSPACE/src/$(PACKAGE)/.git
