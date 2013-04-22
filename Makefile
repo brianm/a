@@ -21,14 +21,6 @@ test: build
 									 -not -name .git \
 		-exec go test $(PACKAGE)/{}  \;
 
-# Run "go fmt" on likely packages
-fmt: workspace
-	@GOPATH=$(WORKSPACE) go fmt $(PACKAGE)
-	@GOPATH=$(WORKSPACE) find . -d 1 -type d \
-									 -not -name $(shell basename $(WORKSPACE)) \
-									 -not -name .git \
-		-exec go fmt $(PACKAGE)/{}  \;
-
 $(WORKSPACE):
 	$(eval WORK_BUILD := $(shell mktemp -d /tmp/goskel.XXX))
 	mkdir -p $(WORK_BUILD)/src/$(PACKAGE)
