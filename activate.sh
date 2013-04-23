@@ -1,4 +1,5 @@
 #!/bin/bash
+make workspace
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 echo ". ~/.bashrc" > /tmp/go_activate.$$
@@ -11,12 +12,19 @@ else
     cat bash_local.example >> /tmp/go_activate.$$
 fi
 
+$(make env)
+
+ws="$(git remote | grep workspace)"
+if [ ! -n "$ws" ]
+then
+    echo "adding git remote workspace"
+    git remote add workspace $project
+fi
+
 echo "Entering workspace, exit shell to escape"
 bash --init-file /tmp/go_activate.$$ -i
 
 rm /tmp/go_activate.$$
-
-$(make env)
 
 if [ -n "$(cd $project && git status -s)" ]
 then
