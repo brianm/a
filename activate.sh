@@ -11,5 +11,23 @@ fi
 echo "Entering workspace, exit shell to escape"
 bash --init-file /tmp/go_activate.$$ -i
 
-echo "Exiting workspace"
 rm /tmp/go_activate.$$
+
+$(make env)
+
+if [ -n "$(cd $project && git status -s)" ]
+then
+    echo "Files in workspace exist which are not checked in:"
+    (cd $project && git status -s)
+else
+    echo "Exiting workspace"
+fi
+echo
+this="$(git log -n 1 | grep commit | awk '{print $2}')"
+if [ -n "$(cd $project && git log $this..HEAD)" ]
+then
+    echo "changes checked into workspace not present here:"
+    echo 
+    (cd $project && git log $this..HEAD)
+fi
+
