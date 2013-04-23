@@ -6,6 +6,9 @@ make env >> /tmp/go_activate.$$
 if [ -f .bash_local ]
 then
     echo ". $DIR/.bash_local" >> /tmp/go_activate.$$
+else
+    echo "No .bash_local, using default from bash_local.example"
+    cat bash_local.example >> /tmp/go_activate.$$
 fi
 
 echo "Entering workspace, exit shell to escape"
