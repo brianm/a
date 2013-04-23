@@ -1,4 +1,4 @@
-package goskel
+package important
 
 import (
 	"testing"

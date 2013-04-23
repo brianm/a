@@ -10,7 +10,8 @@ WORKSPACE=$(PWD)/.workspace
 # in this case it is building the "hello" binary
 # yours will probably be different
 build: workspace
-	GOPATH=$(WORKSPACE) go get $(PACKAGE)/hello
+	GOPATH=$(WORKSPACE) go get $(PACKAGE)
+	cp $(WORKSPACE)/bin/goskel .
 
 # Run tests in root, and non {WORKSPACE .git} subdirs
 # of the root
@@ -36,6 +37,7 @@ workspace: $(WORKSPACE)
 # Wipes out build artifacts
 clean:
 	rm -rf $(WORKSPACE)
+	rm -f goskel
 
 # Wipes out the workspace
 clean-workspace: clean
