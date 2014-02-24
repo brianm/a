@@ -25,3 +25,6 @@ clean:
 
 project: workspace
 	git checkout project
+
+activate: project
+	make activate
