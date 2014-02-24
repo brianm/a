@@ -13,7 +13,6 @@ general way of building.
 If you want to work on this and have a workspace and everything set up
 for you, my recommendation is to do this:
 
-    $ make project
     $ make activate
     
 This sets up the workspace, moves you into it in a subprocess, etc. To
