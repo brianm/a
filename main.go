@@ -1,7 +1,7 @@
 package main
 
-import "github.com/brianm/goskel/important"
+import "fmt"
 
 func main() {
-	important.Greet("world")
+	fmt.Printf("hello world!\n")
 }
