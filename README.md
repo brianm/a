@@ -4,19 +4,24 @@ Base project for go stuffs. Probably not #gonuts compatible.
 
 # Versions, Release, Tags, and Branches 
 
-We make releases, master is not always stable between releases. When
-we make a release we'll merge the current release into the
-<code>go1</code> branch.
+We make releases, master is not always the best choice of branches to
+use. When we make a release we'll merge the current release into the
+<code>go1</code> branch. We'll also tag it, so you can get the exact
+version you want.
+
+If we make a backwards incompatible change, it will be a new project.
+To put it differently, the <code>go1</code> branch will *always* be
+backwards compatible.
 
 # Working with this Project 
 
-So goskel has (or will have shortly) stuff for buildings debs, man
-pages, etc. This doesn't fit neatly into the <code>go get</code>-able
-model (though it can). I also have beliefs about workspace-per-project
-which are not widely held in the greater go community. In the interest
-of accomodating everyone, the project is <code>go get</code> friendly,
-but still has its own full workspace, etc. How do we do this you ask?
-I am glad you asked!
+So, this project has (or will have shortly) stuff for buildings debs,
+man pages, etc. This doesn't fit neatly into the <code>go
+get</code>-able model (though it can). I also have beliefs about
+workspace-per-project which are not widely held in the greater go
+community. In the interest of accomodating everyone, the project is
+<code>go get</code> friendly, but still has its own full workspace,
+etc. How do we do this you ask? I am glad you asked!
 
 You can checkout the <code>project</code> branch and run make to build
 a workspace. You can then run <code>make activate</code> to enter the
