@@ -28,3 +28,4 @@ project: workspace
 
 activate: project
 	make activate
+	git checkout $(BRANCH)
