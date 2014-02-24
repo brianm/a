@@ -2,6 +2,31 @@
 
 Base project for go stuffs. Probably not #gonuts compatible.
 
+# Working and Building
+
+Don't panic. We have a Makefile. The makefile manages the *project*
+not the build.
+
+It can make a build, of course, but that is just a useful thing, not
+general way of building.
+
+If you want to work on this and have a workspace and everything set up
+for you, my recommendation is to do this:
+
+    $ make project
+    $ make activate
+    
+This sets up the workspace, moves you into it in a subprocess, etc. To
+stop working on the project just exit the sub-shell (C-d or
+<code>exit</code>). 
+
+The "project" is maintained in a branch named <code>project</code>.
+
+You will need to modify both the Makefile in <code>master</code> and
+<code>project</code> branches to use the proper package name and
+binary name (the first two lines in the Makefile), but aside from that
+things should Just Work.
+
 # Versions, Release, Tags, and Branches 
 
 We make releases, master is not always the best choice of branches to
