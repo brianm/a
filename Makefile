@@ -1,6 +1,6 @@
 # per-project info
 PACKAGE:=github.com/brianm/goskel
-BINARY:=skelly
+BINARY:=goskel
 
 # shouldn't probably change between projects
 WORKSPACE:=$(PWD)/_workspace
