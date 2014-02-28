@@ -22,6 +22,6 @@ $(WORKSPACE)/src/$(PACKAGE):
 clean:
 	rm -rf $(WORKSPACE) $(BINARY)
 
-activate: project
+activate: workspace
 	@PROJECT="$(BINARY)" PACKAGE="$(PACKAGE)" /bin/bash ./local.bash activate
 
