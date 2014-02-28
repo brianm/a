@@ -27,5 +27,5 @@ project: workspace
 	git checkout project
 
 activate: project
-	make activate
-	git checkout $(BRANCH)
+	@PROJECT="$(BINARY)" PACKAGE="$(PACKAGE)" /bin/bash ./local.bash activate
+
