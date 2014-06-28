@@ -2,8 +2,8 @@ package asana
 
 import (
 	"encoding/json"
-	"testing"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestUnmarshalUserData(t *testing.T) {
