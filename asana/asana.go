@@ -12,7 +12,7 @@ import (
 type Client struct {
 	key string
 	hc  http.Client
-	me User
+	Me User
 }
 
 type Task struct {
@@ -57,7 +57,7 @@ func NewClient(key string) (Client, error) {
 		return c, err
 	}
 
-	c.me = me
+	c.Me = me
 	return c, nil
 }
 
@@ -68,13 +68,6 @@ func (c Client) request(method string, uri string, body io.Reader) (*http.Reques
 	}
 	req.SetBasicAuth(c.key, "")
 	return req, nil
-}
-
-// Return the user associated with the client
-// this does not do a remote fetch, but returns
-// the value as of when the client was created
-func (a Client) Me() User {
-	return a.me
 }
 
 // Fetch a user by id
@@ -107,7 +100,7 @@ func (a Client) User(id interface{}) (User, error) {
 func (c Client) Tasks(w Workspace) ([]Task, error) {
 	td := taskData{}
 	url := fmt.Sprintf("https://app.asana.com/api/1.0/workspaces/%d/tasks?assignee=%d", 
-		w.Id, c.me.Id)
+		w.Id, c.Me.Id)
 	
 	req, err := c.request("GET", url, nil)
 	if err != nil {
