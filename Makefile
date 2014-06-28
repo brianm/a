@@ -7,7 +7,7 @@ WORKSPACE:=$(PWD)/_workspace
 BRANCH:=$(shell git branch | grep '^* ' | awk '{print $$2'})
 
 $(BINARY): workspace
-	GOPATH=$(WORKSPACE) go install $(PACKAGE)
+	GOPATH=$(WORKSPACE) go get $(PACKAGE)
 	cp $(WORKSPACE)/bin/$(BINARY) .
 	@echo "Built binary at ./$(BINARY)"
 
