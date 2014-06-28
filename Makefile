@@ -23,5 +23,5 @@ clean:
 	rm -rf $(WORKSPACE) $(BINARY)
 
 activate: workspace
-	@PROJECT="$(BINARY)" PACKAGE="$(PACKAGE)" /bin/bash ./project.bash activate
+	@PROJECT="$(BINARY)" GOSKEL_ACTIVATED="$(BINARY)" PACKAGE="$(PACKAGE)" /bin/bash ./project.bash activate
 
