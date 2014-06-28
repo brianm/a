@@ -13,5 +13,5 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(string(me))
+	fmt.Printf("%+v\n", me)
 }
