@@ -1,9 +1,17 @@
 package main
 
 import (
-	"log"
+	"fmt"
+	"github.com/brianm/asn/asana"
+	"os"
 )
 
 func main() {
-	log.Printf("Hello, world!")
+	key := os.Getenv("ASANA_KEY")
+	c := asana.NewClient(key)
+	me, err := c.Me()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("%+v\n", me)
 }
