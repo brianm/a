@@ -3,19 +3,48 @@ package asana
 import (
 	"encoding/json"
 	"testing"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestUnmarshalUserData(t *testing.T) {
 	j := []byte(`
-{"data":{"id":184808224339,"name":"Brian McCallister","email":"brianm@skife.org","photo":{"image_21x21":"https://s3.amazonaws.com/profile_photos/184808224339.tPSTUiUUM4eBivXaQtE8_21x21.png","image_27x27":"https://s3.amazonaws.com/profile_photos/184808224339.tPSTUiUUM4eBivXaQtE8_27x27.png","image_36x36":"https://s3.amazonaws.com/profile_photos/184808224339.tPSTUiUUM4eBivXaQtE8_36x36.png","image_60x60":"https://s3.amazonaws.com/profile_photos/184808224339.tPSTUiUUM4eBivXaQtE8_60x60.png","image_128x128":"https://s3.amazonaws.com/profile_photos/184808224339.tPSTUiUUM4eBivXaQtE8_huge.jpeg"},"workspaces":[{"id":13438604102030,"name":"Brian"},{"id":498346170860,"name":"Personal Projects"}]}}
+{
+  "data": {
+    "id": 184808224339,
+    "name": "Brian McCallister",
+    "email": "brianm@skife.org",
+    "photo": {
+      "image_21x21": "https://21",
+      "image_27x27": "https://27",
+      "image_36x36": "https://36",
+      "image_60x60": "https://60",
+      "image_128x128": "https://128"
+    },
+    "workspaces": [
+      {
+        "id": 13438604102030,
+        "name": "Brian"
+      },
+      {
+        "id": 498346170860,
+        "name": "Personal Projects"
+      }
+    ]
+  }
+}
 `)
 	ud := userData{}
 	err := json.Unmarshal(j, &ud)
 	if err != nil {
 		t.Fatalf("got err %s", err)
 	}
-
-	if ud.Data.Id != 184808224339 {
-		t.Fatalf("expected id= %d got %d", 184808224339, ud.Data.Id)
-	}
+	u := ud.Data
+	t.Log("%+v", u)
+	assert.Equal(t, u.Id, 184808224339, "Unexpected Id")
+	assert.Equal(t, u.Name, "Brian McCallister", "")
+	assert.Equal(t, u.Email, "brianm@skife.org", "")
+	assert.Equal(t, u.Photos.Image_21x21, "https://21", "")
+	assert.Equal(t, u.Photos.Image_128x128, "https://128", "")
+	assert.Equal(t, u.Workspaces[0].Name, "Brian", "")
+	assert.Equal(t, u.Workspaces[1].Name, "Personal Projects", "")
 }
