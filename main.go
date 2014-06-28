@@ -11,7 +11,6 @@ import (
 var key = os.Getenv("ASANA_KEY")
 
 func main() {
-
 	app := cli.NewApp()
 	app.Name = "asn"
 	app.Usage = "asn <command>"
@@ -28,6 +27,11 @@ func main() {
 			Action: tasks,
 		},
 		{
+			Name: "workspace",
+			ShortName: "ws",
+			Action: workspace,
+		},
+		{
 			Name: "finish",
 			Usage: "Finish a task",
 			Action: finish,
@@ -38,11 +42,25 @@ func main() {
 	app.Run(os.Args)
 }
 
-func tasks(_ *cli.Context) {
+func client() asana.Client {
 	c, err := asana.NewClient(key)
 	if err != nil {
 		panic(err)
 	}
+	return c
+}
+
+func workspace(*cli.Context) {
+	c := client()
+	bs, err := yaml.Marshal(&c.Me.Workspaces)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(string(bs))
+}
+
+func tasks(*cli.Context) {
+	c := client()
 
 	tasks, err := c.Tasks(c.Me.Workspaces[0])
 	if err != nil {
@@ -50,6 +68,9 @@ func tasks(_ *cli.Context) {
 	}
 
 	bs, err := yaml.Marshal(&tasks)
+	if err != nil {
+		panic(err)
+	}
 	fmt.Println(string(bs))
 }
 
@@ -86,6 +107,9 @@ func me(_ *cli.Context) {
 
 	me := c.Me
 	bs, err := yaml.Marshal(&me)
+	if err != nil {
+		panic(err)
+	}
 	fmt.Println(string(bs))
 }
 
