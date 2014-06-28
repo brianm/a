@@ -12,21 +12,17 @@ var key = os.Getenv("ASANA_KEY")
 func main() {
 
 	app := cli.NewApp()
-	app.Name = "asn"
+	app.Name = "asn"	
 	app.Usage = "asn <command>"
-	//	app.Action = func(c *cli.Context) {
-	//		println("boom! I say!")
-	//	}
+	app.EnableBashCompletion = true
 	app.Commands = []cli.Command{
 		{
 			Name:      "me",
-			ShortName: "m",
 			Usage:     "Who am I?",
 			Action: me,
 		},
 		{
 			Name:      "tasks",
-			ShortName: "t",
 			Usage:     "list tasks in first workspace",
 			Action: tasks,
 		},
@@ -58,4 +54,29 @@ func me(_ *cli.Context) {
 	
 	me := c.Me
 	fmt.Printf("Me\n%+v\n\n", me)
+}
+
+
+func init() {
+	cli.AppHelpTemplate =`NAME:
+   {{.Name}} - {{.Usage}}
+
+USAGE:
+   {{.Name}} command
+
+ENVIRONMENT:
+   ASANA_KEY Environment variable which must contain 
+             Asana API Key
+
+VERSION:
+   {{.Version}}
+
+COMMANDS:
+   {{range .Commands}}{{.Name}}{{with .ShortName}}, {{.}}{{end}}{{ "\t" }}{{.Usage}}
+   {{end}}
+GLOBAL OPTIONS:
+   {{range .Flags}}{{.}}
+   {{end}}
+}
+`
 }
