@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/brianm/a/asana"
 	"github.com/codegangsta/cli"
-	"os"
 	"gopkg.in/yaml.v1"
+	"os"
 )
 
 var key = os.Getenv("ASANA_KEY")
@@ -27,14 +27,14 @@ func main() {
 			Action: tasks,
 		},
 		{
-			Name: "workspace",
+			Name:      "workspace",
 			ShortName: "ws",
-			Action: workspace,
+			Action:    workspace,
 		},
 		{
-			Name: "finish",
-			Usage: "Finish a task",
-			Action: finish,
+			Name:         "finish",
+			Usage:        "Finish a task",
+			Action:       finish,
 			BashComplete: finishCompletion,
 		},
 	}
@@ -56,7 +56,7 @@ func workspace(*cli.Context) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(string(bs))
+	fmt.Print(string(bs))
 }
 
 func tasks(*cli.Context) {
@@ -71,14 +71,14 @@ func tasks(*cli.Context) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(string(bs))
+	fmt.Print(string(bs))
 }
 
 func finish(*cli.Context) {
 	println("finished!")
 }
 
-func finishCompletion(ctx *cli.Context) {	
+func finishCompletion(ctx *cli.Context) {
 	if len(ctx.Args()) > 0 {
 		return
 	}
@@ -88,7 +88,6 @@ func finishCompletion(ctx *cli.Context) {
 		panic(err)
 	}
 
-	
 	tasks, err := c.Tasks(c.Me.Workspaces[0])
 	if err != nil {
 		panic(err)
@@ -110,7 +109,7 @@ func me(_ *cli.Context) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(string(bs))
+	fmt.Print(string(bs))
 }
 
 func init() {
