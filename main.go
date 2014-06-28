@@ -109,6 +109,5 @@ COMMANDS:
 GLOBAL OPTIONS:
    {{range .Flags}}{{.}}
    {{end}}
-}
 `
 }
