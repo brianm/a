@@ -13,5 +13,17 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("%+v\n", me)
+	fmt.Printf("Me\n%+v\n\n", me)
+
+	me, err = c.User("me")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("'me'\n%+v\n\n", me)
+
+	me, err = c.User(me.Id)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("Number\n%+v\n", me)
 }
