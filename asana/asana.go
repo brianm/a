@@ -1,10 +1,10 @@
 package asana
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"encoding/json"
 )
 
 type Client struct {
@@ -17,7 +17,7 @@ func NewClient(key string) Client {
 }
 
 func (a Client) Me() (User, error) {
-	ud := userData {}
+	ud := userData{}
 	url := "https://app.asana.com/api/1.0/users/me"
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -42,40 +42,40 @@ type userData struct {
 }
 
 type Workspace struct {
-	Id int64
+	Id   int64
 	Name string
 }
 
 type User struct {
-	Id int
-	Name string
-	Email string
-	Photos map[string]string `json:"photos"`
+	Id         int
+	Name       string
+	Email      string
+	Photos     map[string]string `json:"photos"`
 	Workspaces []Workspace
-/*
-{
-  "data": {
-    "id": 184808224339,
-    "name": "Brian McCallister",
-    "email": "brianm@skife.org",
-    "photo": {
-      "image_21x21": "https://s3.amazonaws.com/profile_photos/184808224339.tPSTUiUUM4eBivXaQtE8_21x21.png",
-      "image_27x27": "https://s3.amazonaws.com/profile_photos/184808224339.tPSTUiUUM4eBivXaQtE8_27x27.png",
-      "image_36x36": "https://s3.amazonaws.com/profile_photos/184808224339.tPSTUiUUM4eBivXaQtE8_36x36.png",
-      "image_60x60": "https://s3.amazonaws.com/profile_photos/184808224339.tPSTUiUUM4eBivXaQtE8_60x60.png",
-      "image_128x128": "https://s3.amazonaws.com/profile_photos/184808224339.tPSTUiUUM4eBivXaQtE8_huge.jpeg"
-    },
-    "workspaces": [
-      {
-        "id": 13438604102030,
-        "name": "Brian"
-      },
-      {
-        "id": 498346170860,
-        "name": "Personal Projects"
-      }
-    ]
-  }
-}
-*/
+	/*
+	   {
+	     "data": {
+	       "id": 184808224339,
+	       "name": "Brian McCallister",
+	       "email": "brianm@skife.org",
+	       "photo": {
+	         "image_21x21": "https://s3.amazonaws.com/profile_photos/184808224339.tPSTUiUUM4eBivXaQtE8_21x21.png",
+	         "image_27x27": "https://s3.amazonaws.com/profile_photos/184808224339.tPSTUiUUM4eBivXaQtE8_27x27.png",
+	         "image_36x36": "https://s3.amazonaws.com/profile_photos/184808224339.tPSTUiUUM4eBivXaQtE8_36x36.png",
+	         "image_60x60": "https://s3.amazonaws.com/profile_photos/184808224339.tPSTUiUUM4eBivXaQtE8_60x60.png",
+	         "image_128x128": "https://s3.amazonaws.com/profile_photos/184808224339.tPSTUiUUM4eBivXaQtE8_huge.jpeg"
+	       },
+	       "workspaces": [
+	         {
+	           "id": 13438604102030,
+	           "name": "Brian"
+	         },
+	         {
+	           "id": 498346170860,
+	           "name": "Personal Projects"
+	         }
+	       ]
+	     }
+	   }
+	*/
 }
