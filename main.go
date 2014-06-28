@@ -26,6 +26,12 @@ func main() {
 			Usage:  "list tasks in first workspace",
 			Action: tasks,
 		},
+		{
+			Name: "finish",
+			Usage: "Finish a task",
+			Action: finish,
+			BashComplete: finishCompletion,
+		},
 	}
 
 	app.Run(os.Args)
@@ -43,6 +49,31 @@ func tasks(_ *cli.Context) {
 	}
 	for _, t := range tasks {
 		fmt.Printf("%d\t%s\n", t.Id, t.Name)
+	}
+}
+
+func finish(*cli.Context) {
+	println("finished!")
+}
+
+func finishCompletion(ctx *cli.Context) {	
+	if len(ctx.Args()) > 0 {
+		return
+	}
+
+	c, err := asana.NewClient(key)
+	if err != nil {
+		panic(err)
+	}
+
+	
+	tasks, err := c.Tasks(c.Me.Workspaces[0])
+	if err != nil {
+		panic(err)
+	}
+
+	for _, t := range tasks {
+		fmt.Printf("%d\n", t.Id)
 	}
 }
 
