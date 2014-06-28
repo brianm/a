@@ -3,8 +3,8 @@ package asana
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"io"
+	"io/ioutil"
 	"net/http"
 )
 
@@ -12,11 +12,11 @@ import (
 type Client struct {
 	key string
 	hc  http.Client
-	Me User
+	Me  User
 }
 
 type Task struct {
-	Id int64
+	Id   int64
 	Name string
 }
 
@@ -50,8 +50,8 @@ type User struct {
 }
 
 // Created a new client with a specified API Key
-func NewClient(key string) (Client, error) {	
-	c := Client{key, http.Client{}, User {}}
+func NewClient(key string) (Client, error) {
+	c := Client{key, http.Client{}, User{}}
 	me, err := c.User("me")
 	if err != nil {
 		return c, err
@@ -96,27 +96,25 @@ func (a Client) User(id interface{}) (User, error) {
 	return ud.Data, err
 }
 
-
 func (c Client) Tasks(w Workspace) ([]Task, error) {
 	td := taskData{}
-	url := fmt.Sprintf("https://app.asana.com/api/1.0/workspaces/%d/tasks?assignee=%d", 
+	url := fmt.Sprintf("https://app.asana.com/api/1.0/workspaces/%d/tasks?assignee=%d",
 		w.Id, c.Me.Id)
-	
+
 	req, err := c.request("GET", url, nil)
 	if err != nil {
 		return nil, err
 	}
-	
+
 	res, err := c.hc.Do(req)
 	if err != nil {
 		return nil, err
 	}
-	
+
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		return td.Data, fmt.Errorf("error reading body: %s", err)
 	}
-	err = json.Unmarshal(body, &td)	
+	err = json.Unmarshal(body, &td)
 	return td.Data, err
 }
-
