@@ -8,22 +8,20 @@ import (
 
 func main() {
 	key := os.Getenv("ASANA_KEY")
-	c := asana.NewClient(key)
-	me, err := c.Me()
+	c, err := asana.NewClient(key)
 	if err != nil {
 		panic(err)
 	}
+
+	me := c.Me()
 	fmt.Printf("Me\n%+v\n\n", me)
 
-	me, err = c.User("me")
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("'me'\n%+v\n\n", me)
 
-	me, err = c.User(me.Id)
+	tasks, err := c.Tasks(me.Workspaces[0])
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("Number\n%+v\n", me)
+	for _, t := range tasks {
+		fmt.Printf("%d\t%s\n", t.Id, t.Name)
+	}
 }

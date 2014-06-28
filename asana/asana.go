@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -11,8 +12,17 @@ import (
 type Client struct {
 	key string
 	hc  http.Client
+	me User
 }
 
+type Task struct {
+	Id int64
+	Name string
+}
+
+type taskData struct {
+	Data []Task
+}
 
 type userData struct {
 	Data User
@@ -40,30 +50,45 @@ type User struct {
 }
 
 // Created a new client with a specified API Key
-func NewClient(key string) Client {
-	return Client{key, http.Client{}}
+func NewClient(key string) (Client, error) {	
+	c := Client{key, http.Client{}, User {}}
+	me, err := c.User("me")
+	if err != nil {
+		return c, err
+	}
+
+	c.me = me
+	return c, nil
 }
 
-// Fetch the user owning the API key this
-// client was created with
-func (a Client) Me() (User, error) {
-	return a.User("me")
+func (c Client) request(method string, uri string, body io.Reader) (*http.Request, error) {
+	req, err := http.NewRequest(method, uri, body)
+	if err != nil {
+		return req, fmt.Errorf("Cannot create request %s %s", method, uri, err)
+	}
+	req.SetBasicAuth(c.key, "")
+	return req, nil
+}
+
+// Return the user associated with the client
+// this does not do a remote fetch, but returns
+// the value as of when the client was created
+func (a Client) Me() User {
+	return a.me
 }
 
 // Fetch a user by id
 func (a Client) User(id interface{}) (User, error) {
 	ud := userData{}
-	url := fmt.Sprintf("https://app.asana.com/api/1.0/users/%v", id)
-	req, err := http.NewRequest("GET", url, nil)
+	uri := fmt.Sprintf("https://app.asana.com/api/1.0/users/%v", id)
+	req, err := a.request("GET", uri, nil)
 	if err != nil {
-		return ud.Data, fmt.Errorf("Cannot create request GET %s",
-			url, err)
+		return ud.Data, err
 	}
-	req.SetBasicAuth(a.key, "")
+
 	resp, err := a.hc.Do(req)
 	if err != nil {
-		return ud.Data, fmt.Errorf("Cannot execute request GET %s: %s",
-			url, err)
+		return ud.Data, fmt.Errorf("Cannot execute request GET %s: %s", uri, err)
 	}
 
 	if resp.StatusCode != 200 {
@@ -77,3 +102,28 @@ func (a Client) User(id interface{}) (User, error) {
 	err = json.Unmarshal(body, &ud)
 	return ud.Data, err
 }
+
+
+func (c Client) Tasks(w Workspace) ([]Task, error) {
+	td := taskData{}
+	url := fmt.Sprintf("https://app.asana.com/api/1.0/workspaces/%d/tasks?assignee=%d", 
+		w.Id, c.me.Id)
+	
+	req, err := c.request("GET", url, nil)
+	if err != nil {
+		return nil, err
+	}
+	
+	res, err := c.hc.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		return td.Data, fmt.Errorf("error reading body: %s", err)
+	}
+	err = json.Unmarshal(body, &td)	
+	return td.Data, err
+}
+
