@@ -1,6 +1,6 @@
 # per-project info
-PACKAGE:=github.com/brianm/goskel
-BINARY:=goskel
+PACKAGE:=github.com/brianm/asn
+BINARY:=asn
 
 # shouldn't probably change between projects
 WORKSPACE:=$(PWD)/_workspace
