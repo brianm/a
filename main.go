@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"asana"
+	"github.com/brianm/a/asana"
 	"github.com/codegangsta/cli"
 	"os"
 )
