@@ -5,6 +5,7 @@ import (
 	"github.com/brianm/a/asana"
 	"github.com/codegangsta/cli"
 	"os"
+	"gopkg.in/yaml.v1"
 )
 
 var key = os.Getenv("ASANA_KEY")
@@ -47,9 +48,9 @@ func tasks(_ *cli.Context) {
 	if err != nil {
 		panic(err)
 	}
-	for _, t := range tasks {
-		fmt.Printf("%d\t%s\n", t.Id, t.Name)
-	}
+
+	bs, err := yaml.Marshal(&tasks)
+	fmt.Println(string(bs))
 }
 
 func finish(*cli.Context) {
@@ -84,7 +85,8 @@ func me(_ *cli.Context) {
 	}
 
 	me := c.Me
-	fmt.Printf("Me\n%+v\n\n", me)
+	bs, err := yaml.Marshal(&me)
+	fmt.Println(string(bs))
 }
 
 func init() {
