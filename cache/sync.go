@@ -28,7 +28,7 @@ func (c Cache) migrate() error {
 	}
 	defer stmt.Close()
 
-	var name string
+	var name sql.NullString
 	r := stmt.QueryRow("tasks")
 	err = r.Scan(&name)
 	if err == sql.ErrNoRows {
