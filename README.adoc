@@ -1,8 +1,8 @@
-# Asana CLI
+## Asana CLI
 
-CLI and general utility library for working with Asana
+CLI and general utility library for working with http://asana.com/[Asana]
 
-# Working and Building
+## Working and Building
 
 Don't panic. We have a Makefile. The makefile manages the *project*
 not the build.
@@ -12,10 +12,10 @@ general way of building.
 
 If you want to work on this and have a workspace and everything set up
 for you, my recommendation is to do this:
-
+q
     $ make activate
     
 This sets up the workspace, moves you into it in a subprocess, etc. To
 stop working on the project just exit the sub-shell (C-d or
-<code>exit</code>). 
+<code>exit</code>).
 
