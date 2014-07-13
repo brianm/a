@@ -8,7 +8,7 @@ see use of the API maybe.
 ## Design Thoughts
 
 Asana's API is ridiculously slow, therefore in order to make
-interaction reasonably snappy 
+interaction reasonably snappy we will start a daemon 
 
 ## Working and Building
 
