@@ -22,7 +22,10 @@ func Open(path string) (Cache, error) {
 }
 
 func (c Cache) migrate() error {
-	stmt, err := c.db.Prepare("SELECT name FROM sqlite_master WHERE type='table' AND name=?")
+	stmt, err := c.db.Prepare(`SELECT name 
+                               FROM sqlite_master 
+                               WHERE type='table' 
+                                 AND name=?`)
 	if err != nil {
 		return err
 	}
@@ -38,7 +41,7 @@ func (c Cache) migrate() error {
                                name text
                              )`)
 		if err != nil {
-			return err
+			return err 
 		}
 		log.Println("created tasks table")
 	}
