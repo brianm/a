@@ -2,6 +2,14 @@
 
 CLI and general utility library for working with http://asana.com/[Asana]
 
+This is so very far from ready to use you should not bother, except to
+see use of the API maybe.
+
+## Design Thoughts
+
+Asana's API is ridiculously slow, therefore in order to make
+interaction reasonably snappy 
+
 ## Working and Building
 
 Don't panic. We have a Makefile. The makefile manages the *project*
@@ -12,10 +20,9 @@ general way of building.
 
 If you want to work on this and have a workspace and everything set up
 for you, my recommendation is to do this:
-q
+
     $ make activate
     
 This sets up the workspace, moves you into it in a subprocess, etc. To
-stop working on the project just exit the sub-shell (C-d or
-<code>exit</code>).
+stop working on the project just exit the sub-shell (C-d or `exit`).
 
