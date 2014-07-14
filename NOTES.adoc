@@ -1,7 +1,7 @@
 ## Daemonization
 
 Is a pain in Go, but can do https://code.google.com/p/go/issues/detail?id=227#c4[gressil-like]
-[code,golang]
+[source,go]
 -----
 import (
  "syscall"
