@@ -8,7 +8,16 @@ see use of the API maybe.
 ## Design Thoughts
 
 Asana's API is ridiculously slow, therefore in order to make
-interaction reasonably snappy we will start a daemon 
+interaction reasonably snappy we will start a daemon which the CLI
+will talk to to enqueue work. 
+
+The daemon will also periodically poll for updates on the server in
+order to keep the local cache accurate.
+
+We should show client side views of things that are queued, for
+example we should show new tasks that have not made it to the server
+yet, but we should highlight that they are only available locally
+(until the sync occurs). Likewise deletes, etc.
 
 ## Working and Building
 
