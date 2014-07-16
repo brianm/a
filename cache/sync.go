@@ -41,7 +41,7 @@ func (c Cache) migrate() error {
                                name text
                              )`)
 		if err != nil {
-			return err 
+			return err
 		}
 		log.Println("created tasks table")
 	}
