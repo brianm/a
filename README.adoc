@@ -19,13 +19,15 @@ example we should show new tasks that have not made it to the server
 yet, but we should highlight that they are only available locally
 (until the sync occurs). Likewise deletes, etc.
 
+
+
 ## Working and Building
 
 Don't panic. We have a Makefile. The makefile manages the *project*
 not the build.
 
 It can make a build, of course, but that is just a useful thing, not
-general way of building.
+the general way of building.
 
 If you want to work on this and have a workspace and everything set up
 for you, my recommendation is to do this:
