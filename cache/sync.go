@@ -23,9 +23,9 @@ func Open(path string) (Cache, error) {
 
 func (c Cache) migrate() error {
 	stmt, err := c.db.Prepare(`SELECT name 
-                               FROM sqlite_master 
-                               WHERE type='table' 
-                                 AND name=?`)
+                                   FROM sqlite_master 
+                                   WHERE type='table' 
+                                     AND name=?`)
 	if err != nil {
 		return err
 	}
