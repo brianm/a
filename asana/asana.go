@@ -15,9 +15,26 @@ type Client struct {
 	Me  User
 }
 
+type Project struct {
+	Id int64
+	Name string
+}
+
 type Task struct {
 	Id   int64
 	Name string
+	AssigneeStatus string `json:"assignee_status"`
+	CreatedAt string `json:"created_at"`
+	Assignee User
+	Completed bool	
+	CompletedAt string `json:"completed_at"`
+	DueOn string `json:"due_on"`
+	Followers []User
+	ModifiedAt string `json:"modified_at"`
+	Notes string
+	Projects []Project
+	Parent *Task
+	Workspace Workspace
 }
 
 type Workspace struct {
@@ -89,7 +106,7 @@ func (a Client) User(id interface{}) (User, error) {
 }
 
 func (c Client) Tasks(w Workspace) ([]Task, error) {
-	url := fmt.Sprintf("https://app.asana.com/api/1.0/workspaces/%d/tasks?assignee=%d",
+	url := fmt.Sprintf("https://app.asana.com/api/1.0/workspaces/%d/tasks?assignee=%d&opt_fields=assignee,assignee_status,created_at,completed,completed_at,due_on,followers,modified_at,name,projects,parent,workspace",
 		w.Id, c.Me.Id)
 
 	req, err := c.request("GET", url, nil)
