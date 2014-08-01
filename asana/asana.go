@@ -20,14 +20,6 @@ type Task struct {
 	Name string
 }
 
-type taskData struct {
-	Data []Task
-}
-
-type userData struct {
-	Data User
-}
-
 type Workspace struct {
 	Id   int64
 	Name string
@@ -72,7 +64,7 @@ func (c Client) request(method string, uri string, body io.Reader) (*http.Reques
 
 // Fetch a user by id
 func (a Client) User(id interface{}) (User, error) {
-	ud := userData{}
+	ud := struct{ Data User }{}
 	uri := fmt.Sprintf("https://app.asana.com/api/1.0/users/%v", id)
 	req, err := a.request("GET", uri, nil)
 	if err != nil {
@@ -97,7 +89,6 @@ func (a Client) User(id interface{}) (User, error) {
 }
 
 func (c Client) Tasks(w Workspace) ([]Task, error) {
-	td := taskData{}
 	url := fmt.Sprintf("https://app.asana.com/api/1.0/workspaces/%d/tasks?assignee=%d",
 		w.Id, c.Me.Id)
 
@@ -113,8 +104,11 @@ func (c Client) Tasks(w Workspace) ([]Task, error) {
 
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		return td.Data, fmt.Errorf("error reading body: %s", err)
+		return nil, fmt.Errorf("error reading body: %s", err)
 	}
-	err = json.Unmarshal(body, &td)
-	return td.Data, err
+
+	data := struct{ Data []Task }{}
+
+	err = json.Unmarshal(body, &data)
+	return data.Data, err
 }
