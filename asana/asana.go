@@ -137,28 +137,3 @@ func (c Client) Tasks(w Workspace) ([]Task, error) {
 	err = json.Unmarshal(body, &data)
 	return data.Data, err
 }
-
-func (c Client) MyTasks() ([]Task, error) {
-	url := fmt.Sprintf("https://app.asana.com/api/1.0/tasks?assignee=%d&opt_fields=assignee,assignee_status,created_at,completed,completed_at,due_on,followers,modified_at,name,projects,parent,workspace",
-		c.Me.Id)
-
-	req, err := c.request("GET", url, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	res, err := c.hc.Do(req)
-	if err != nil {
-		return nil, err
-	}
-
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		return nil, fmt.Errorf("error reading body: %s", err)
-	}
-
-	data := struct{ Data []Task }{}
-
-	err = json.Unmarshal(body, &data)
-	return data.Data, err
-}
