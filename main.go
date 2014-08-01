@@ -62,16 +62,18 @@ func workspace(*cli.Context) {
 func tasks(*cli.Context) {
 	c := client()
 
-	tasks, err := c.Tasks(c.Me.Workspaces[0])
-	if err != nil {
-		panic(err)
-	}
+	for _, w := range c.Me.Workspaces {
+		tasks, err := c.Tasks(w)
+		if err != nil {
+			panic(err)
+		}
 
-	bs, err := yaml.Marshal(&tasks)
-	if err != nil {
-		panic(err)
+		bs, err := yaml.Marshal(&tasks)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Print(string(bs))
 	}
-	fmt.Print(string(bs))
 }
 
 func finish(*cli.Context) {

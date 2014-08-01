@@ -16,25 +16,25 @@ type Client struct {
 }
 
 type Project struct {
-	Id int64
+	Id   int64
 	Name string
 }
 
 type Task struct {
-	Id   int64
-	Name string
+	Id             int64
+	Name           string
 	AssigneeStatus string `json:"assignee_status"`
-	CreatedAt string `json:"created_at"`
-	Assignee UserLite
-	Completed bool	
-	CompletedAt string `json:"completed_at"`
-	DueOn string `json:"due_on"`
-	Followers []UserLite
-	ModifiedAt string `json:"modified_at"`
-	Notes string
-	Projects []Project
-	Parent *Task
-	Workspace WorkspaceLite
+	CreatedAt      string `json:"created_at"`
+	Assignee       UserLite
+	Completed      bool
+	CompletedAt    string `json:"completed_at"`
+	DueOn          string `json:"due_on"`
+	Followers      []UserLite
+	ModifiedAt     string `json:"modified_at"`
+	Notes          string
+	Projects       []Project
+	Parent         *Task
+	Workspace      WorkspaceLite
 }
 
 type WorkspaceLite struct {
@@ -55,7 +55,7 @@ type Photos struct {
 }
 
 type UserLite struct {
-	Id int64
+	Id   int64
 	Name string
 }
 
@@ -116,6 +116,31 @@ func (a Client) User(id interface{}) (User, error) {
 func (c Client) Tasks(w Workspace) ([]Task, error) {
 	url := fmt.Sprintf("https://app.asana.com/api/1.0/workspaces/%d/tasks?assignee=%d&opt_fields=assignee,assignee_status,created_at,completed,completed_at,due_on,followers,modified_at,name,projects,parent,workspace",
 		w.Id, c.Me.Id)
+
+	req, err := c.request("GET", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	res, err := c.hc.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		return nil, fmt.Errorf("error reading body: %s", err)
+	}
+
+	data := struct{ Data []Task }{}
+
+	err = json.Unmarshal(body, &data)
+	return data.Data, err
+}
+
+func (c Client) MyTasks() ([]Task, error) {
+	url := fmt.Sprintf("https://app.asana.com/api/1.0/tasks?assignee=%d&opt_fields=assignee,assignee_status,created_at,completed,completed_at,due_on,followers,modified_at,name,projects,parent,workspace",
+		c.Me.Id)
 
 	req, err := c.request("GET", url, nil)
 	if err != nil {
