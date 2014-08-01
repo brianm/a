@@ -25,20 +25,24 @@ type Task struct {
 	Name string
 	AssigneeStatus string `json:"assignee_status"`
 	CreatedAt string `json:"created_at"`
-	Assignee User
+	Assignee UserLite
 	Completed bool	
 	CompletedAt string `json:"completed_at"`
 	DueOn string `json:"due_on"`
-	Followers []User
+	Followers []UserLite
 	ModifiedAt string `json:"modified_at"`
 	Notes string
 	Projects []Project
 	Parent *Task
-	Workspace Workspace
+	Workspace WorkspaceLite
+}
+
+type WorkspaceLite struct {
+	Id int64
 }
 
 type Workspace struct {
-	Id   int64
+	WorkspaceLite
 	Name string
 }
 
@@ -50,9 +54,13 @@ type Photos struct {
 	Image_128x128 string
 }
 
+type UserLite struct {
+	Id int64
+	Name string
+}
+
 type User struct {
-	Id         int
-	Name       string
+	UserLite
 	Email      string
 	Photos     Photos `json:"photo"`
 	Workspaces []Workspace
