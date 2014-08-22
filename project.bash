@@ -16,4 +16,10 @@ export PATH=$DIR/_workspace/bin/:$PATH
 plum="\[\033[38;5;54m\]"
 reset="\[\033[00m\]"
 export PS1="[${plum}$PROJECT${reset}] $PS1"
+
+if [ -f local.bash ]
+then
+    . local.bash
+fi
+
 cd _workspace/src/$PACKAGE
